@@ -4,39 +4,59 @@ import * as OBCF from "@thatopen/components-front";
 
 export function setupLengthMeasurementWithUI(
   components: OBC.Components,
-  world: OBC.SimpleWorld<OBC.SimpleScene, OBC.SimpleCamera, OBC.SimpleRenderer>,
+  world: OBC.SimpleWorld<
+    OBC.SimpleScene,
+    OBC.SimpleCamera,
+    OBCF.PostproductionRenderer
+  >,
   container: HTMLElement
 ) {
-  // Initialize the Length Measurement Component
   const dimensions = components.get(OBCF.LengthMeasurement);
   dimensions.world = world;
-  dimensions.enabled = false; // Initially disabled
+  dimensions.enabled = false;
   dimensions.snapDistance = 1;
 
-  // Set up the button to toggle the dimension tool
   const toggleButton = BUI.Component.create<BUI.PanelSection>(() => {
     return BUI.html`
-      <bim-button label="Toggle Length Measurement"
-        @click="${() => {
-          dimensions.enabled = !dimensions.enabled; // Toggle the dimension tool
-        }}">
-      </bim-button>
-    `;
+    <button
+      id="measureButton"
+      style="border: none; background-color: lightgray; padding: 8px 12px; border-radius: 5px;"
+      @click="${() => {
+        dimensions.enabled = !dimensions.enabled;
+        const button = document.getElementById("measureButton");
+        if (button) {
+          button.textContent = dimensions.enabled ? "Activated" : "Measure";
+          button.style.color = dimensions.enabled ? "green" : "black";
+          dimensions.visible = dimensions.enabled ? true : false;
+          dimensions.color.set(0xff0000);
+        }
+      }}">
+      Measure
+    </button>
+  `;
   });
 
-  document.body.append(toggleButton);
+  toggleButton.style.border = "none";
+  toggleButton.style.backgroundColor = "#FFFFFF";
 
-  // Set up the Escape key event to deactivate the dimension tool
+  document.querySelector("#measureBtn")?.appendChild(toggleButton);
+
   window.onkeydown = (event) => {
     if (event.code === "Escape") {
-      dimensions.enabled = false; // Deactivate the dimension tool when Escape is pressed
+      dimensions.enabled = false;
     }
   };
 
-  // Set up mouse event for creating dimensions (double-click event)
-  container.ondblclick = () => {
+  window.onkeydown = (event) => {
+    if (event.code === "Delete") {
+      dimensions.delete();
+    }
+  };
+
+  container.onclick = () => {
     if (dimensions.enabled) {
-      dimensions.create(); // Create a dimension if tool is enabled
+      dimensions.visible = true;
+      dimensions.create();
     }
   };
 }

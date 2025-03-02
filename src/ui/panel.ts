@@ -10,7 +10,7 @@ export function createPanel(
   const panel = BUI.Component.create<BUI.PanelSection>(() => {
     return BUI.html`
    <div class="center-vertical" onclick="document.getElementById('ifcFile').click()">
-        <img src="../../public/upload.svg" class="upload-image" alt="Upload">
+        <img src="../../upload.svg" class="upload-image" alt="Upload">
         <input type="file" id="ifcFile" accept=".ifc" class="hidden-file-input"
         @change=${() => loadIfc(fragmentIfcLoader, world)}>
 

@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import * as OBC from "@thatopen/components";
+import * as OBCF from "@thatopen/components-front";
 
 export function setupWorld(container: HTMLElement) {
   const components = new OBC.Components();
@@ -7,11 +8,11 @@ export function setupWorld(container: HTMLElement) {
   const world = worlds.create<
     OBC.SimpleScene,
     OBC.SimpleCamera,
-    OBC.SimpleRenderer
+    OBCF.PostproductionRenderer
   >();
 
   world.scene = new OBC.SimpleScene(components);
-  world.renderer = new OBC.SimpleRenderer(components, container);
+  world.renderer = new OBCF.PostproductionRenderer(components, container);
   world.camera = new OBC.SimpleCamera(components);
   components.init();
 
