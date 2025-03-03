@@ -27,7 +27,7 @@ export function setupLengthMeasurementWithUI(
         if (button) {
           button.textContent = dimensions.enabled ? "Activated" : "Measure";
           button.style.color = dimensions.enabled ? "green" : "black";
-          dimensions.visible = dimensions.enabled ? true : false;
+          dimensions.visible = dimensions.enabled ? true : false; //add to this to another function to hide dimensions
           dimensions.color.set(0xff0000);
         }
       }}">

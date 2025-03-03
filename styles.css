@@ -222,3 +222,8 @@ body {
   width: 24px; /* Adjust size */
   height: auto;
 }
+
+.measure-img {
+  padding-left: 0px;
+  margin-left: 0px;
+}

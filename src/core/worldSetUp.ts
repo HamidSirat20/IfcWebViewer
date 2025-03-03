@@ -29,5 +29,20 @@ export function setupWorld(container: HTMLElement) {
 
   // Setup Camera
   world.camera.controls.setLookAt(12, 16, 20, 0, 0, -10);
+  const cullers = components.get(OBC.Cullers);
+  const culler = cullers.create(world);
+  culler.threshold = 200;
+  culler.config.renderDebugFrame = true;
+  const debugFrame = culler.renderer.domElement;
+  document.body.appendChild(debugFrame);
+  debugFrame.style.position = "fixed";
+  debugFrame.style.left = "0";
+  debugFrame.style.bottom = "0";
+  debugFrame.style.visibility = "collapse";
+  culler.needsUpdate = true;
+  world.camera.controls.addEventListener("controlend", () => {
+    culler.needsUpdate = true;
+  });
+  
   return { world, components };
 }
