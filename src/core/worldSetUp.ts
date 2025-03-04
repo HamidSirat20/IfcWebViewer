@@ -17,13 +17,13 @@ export function setupWorld(container: HTMLElement) {
   components.init();
 
   world.scene.setup();
-  world.scene.three.background = null;
+  world.scene.three.background = new THREE.Color("#2A3139");
 
   // Add grid
   const grids = components.get(OBC.Grids);
   const grid = grids.create(world);
   grid.isSetup = true;
-  grid.config.color = new THREE.Color("blue");
+  grid.config.color = new THREE.Color("white");
   grid.config.secondarySize = 15;
   grid.config.visible = true;
 
@@ -43,6 +43,6 @@ export function setupWorld(container: HTMLElement) {
   world.camera.controls.addEventListener("controlend", () => {
     culler.needsUpdate = true;
   });
-  
+
   return { world, components };
 }

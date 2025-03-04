@@ -227,3 +227,9 @@ body {
   padding-left: 0px;
   margin-left: 0px;
 }
+
+.minimap {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
