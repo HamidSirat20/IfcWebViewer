@@ -2,29 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IFC Viewer</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="https://thatopen.github.io/engine_components/resources/favicon.ico" />
-    <title>BIM Application</title>
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous" />
+      href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   </head>
   <body>
+    <!--NabBar -->
     <div class="ribbon" id="mainRibbon">
       <div class="ribbon-tabs">
         <div class="ribbon-tab" data-tab="model">
@@ -108,25 +98,66 @@
         </bim-button>
       </div>
     </div>
+    <!-- Sidebar (Visible by Default) -->
+    <div class="sidebar" id="sidebar">
+      <button class="close-btn" onclick="toggleSidebar()">✖</button>
+      <h5>Ifc Properties</h5>
+      <div class="properties"></div>
+      <div class="upload-file"></div>
+    </div>
 
-    <div class="full-screen" id="container"></div>
-    <div class="minimap" id="minimap"></div>
+    <!-- Grip Button (Initially Hidden) -->
+    <button class="grip-button" id="gripButton" onclick="toggleSidebar()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-bar-right"
+        viewBox="0 0 16 16">
+        <path
+          fill-rule="evenodd"
+          d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5" />
+      </svg>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <div class="full-screen" id="container"></div>
+      <div class="minimap" id="minimap"></div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script type="module">
       const ribbon = document.getElementById("mainRibbon");
       const tabs = document.querySelectorAll(".ribbon-tab");
       const groups = document.querySelectorAll(".ribbon-group");
       const collapseBtn = document.getElementById("collapseBtn");
+      const propertiesContainer = document.getElementById(
+        "properties-container"
+      );
+
+      // Initialize panel reference
+      let propertiesPanel = null;
 
       // Collapse functionality
       collapseBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         ribbon.classList.toggle("collapsed");
 
-        // Rotate chevron icon
         const icon = collapseBtn.querySelector("i");
         icon.style.transform = ribbon.classList.contains("collapsed")
           ? "rotate(180deg)"
           : "rotate(0deg)";
+
+        // Update panel position
+        if (propertiesContainer) {
+          propertiesContainer.style.top = ribbon.classList.contains("collapsed")
+            ? "40px"
+            : "120px";
+        }
       });
 
       // Tab switching
@@ -137,11 +168,23 @@
           tabs.forEach((t) => t.classList.remove("active"));
           groups.forEach((g) => g.classList.remove("active"));
 
-          tab.classList.add("active");
           const tabName = tab.dataset.tab;
+          tab.classList.add("active");
           document
             .querySelector(`[data-tab-content="${tabName}"]`)
             .classList.add("active");
+
+          // Handle properties panel
+          if (tabName === "properties") {
+            if (!propertiesPanel) {
+              // Create panel if it doesn't exist
+              propertiesPanel = document.createElement("bim-panel");
+              propertiesContainer.appendChild(propertiesPanel);
+            }
+            propertiesPanel.setAttribute("active", "");
+          } else if (propertiesPanel) {
+            propertiesPanel.removeAttribute("active");
+          }
 
           if (ribbon.classList.contains("collapsed")) {
             ribbon.classList.remove("collapsed");
@@ -152,6 +195,12 @@
 
       // Activate first tab
       tabs[0].click();
+    </script>
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("hidden");
+      }
     </script>
     <script type="module" src="./main.ts"></script>
   </body>
