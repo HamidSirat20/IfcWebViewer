@@ -1,3 +1,6 @@
+:root {
+  --nav-height: 140px;
+}
 * {
   box-sizing: content-box;
 }
@@ -12,11 +15,11 @@ body {
 .sidebar {
   position: fixed;
   left: 0;
-  top: 143px;
+  top: var(--nav-height);
   width: 300px;
   height: 100vh;
-  background-color: #343a40;
-  color: white;
+  background-color: #e0e0e0;
+  color: black;
   padding: 15px;
   overflow-y: auto;
   z-index: 1000;
@@ -28,7 +31,7 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #ff4d4d;
+  background: #e74c3c;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -83,10 +86,10 @@ body {
 }
 
 .ribbon {
-  background: #494949;
+  background: #cccccc;
   padding: 8px;
   transition: all 0.3s ease;
-  min-height: 120px;
+  height: var(--nav-height);
   overflow: hidden;
   position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -106,7 +109,7 @@ body {
 
 .ribbon-tab {
   padding: 8px 16px;
-  background: #e0e0e0;
+  background: #9aa6b2;
   border-radius: 4px 4px 0 0;
   cursor: pointer;
   display: flex;
@@ -117,7 +120,7 @@ body {
 }
 
 .ribbon-tab.active {
-  background: #948282;
+  background: #2c3e50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: white;
 }
@@ -136,7 +139,7 @@ body {
 }
 
 .ribbon-button {
-  background: #fff;
+  background: #409eff;
   border-radius: 4px;
   display: flex;
   gap: 1px;
@@ -317,4 +320,164 @@ body {
 
 .ribbon.collapsed ~ #properties-container {
   top: 40px;
+}
+
+.tree {
+  background-color: #e0e0e0;
+}
+
+/* button general */
+
+/* General button styling */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.icon-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.icon-button:active {
+  background-color: #004085;
+}
+
+/* Icon styling */
+.icon-button .material-icons {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+/* Optional: Add focus style */
+.icon-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* style upload */
+
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.upload-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.upload-button:active {
+  background-color: #1e7e34;
+}
+
+/* Icon styling */
+.upload-button .material-icons {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+/* File input styling */
+.hidden-file-input {
+  display: none;
+}
+
+/* Optional: Add focus style */
+.upload-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+.measure-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.measure-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.measure-button:active {
+  transform: scale(0.98);
+}
+
+.measure-button.activated {
+  background-color: #28a745 !important;
+  color: white;
+}
+
+.material-symbols-outlined {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.measure-button,
+.visibility-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.measure-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.measure-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.measure-button.activated {
+  background-color: #28a745 !important;
+  color: white;
+}
+
+.visibility-button {
+  background-color: #ff9800;
+  color: white;
+}
+
+.visibility-button:hover {
+  background-color: #e68900;
+  transform: scale(1.05);
+}
+
+.visibility-button.hidden {
+  background-color: #dc3545 !important;
 }

@@ -14,32 +14,63 @@ export function setupLengthMeasurementWithUI(
   const dimensions = components.get(OBCF.LengthMeasurement);
   dimensions.world = world;
   dimensions.enabled = false;
+  dimensions.visible = false;
   dimensions.snapDistance = 1;
 
   const toggleButton = BUI.Component.create<BUI.PanelSection>(() => {
     return BUI.html`
     <button
       id="measureButton"
-      style="border: none; background-color: lightgray; padding: 8px 12px; border-radius: 5px;"
+      class="measure-button"
       @click="${() => {
         dimensions.enabled = !dimensions.enabled;
         const button = document.getElementById("measureButton");
+
         if (button) {
-          button.textContent = dimensions.enabled ? "Activated" : "Measure";
-          button.style.color = dimensions.enabled ? "green" : "black";
-          dimensions.visible = dimensions.enabled ? true : false; //add to this to another function to hide dimensions
-          dimensions.color.set(0xff0000);
+          const textNode = button.querySelector(".button-text");
+          if (textNode) {
+            textNode.textContent = dimensions.enabled
+              ? "Measuring Active"
+              : "Start Measurement";
+          }
+          button.classList.toggle("activated", dimensions.enabled);
+
+          dimensions.visible = dimensions.enabled;
+          dimensions.color.set(0x00ff00);
         }
       }}">
-      Measure
+      <span class="material-symbols-outlined">measuring_tape</span>
+      <span class="button-text">Start Measurement</span>
     </button>
   `;
   });
 
-  toggleButton.style.border = "none";
-  toggleButton.style.backgroundColor = "#FFFFFF";
+  const visibilityButton = BUI.Component.create<BUI.PanelSection>(() => {
+    return BUI.html`
+    <button
+      id="visibilityButton"
+      class="visibility-button"
+      @click="${() => {
+        dimensions.visible = !dimensions.visible;
+        const button = document.getElementById("visibilityButton");
 
-  document.querySelector("#measureBtn")?.appendChild(toggleButton);
+        if (button) {
+          const textNode = button.querySelector(".button-text");
+          if (textNode) {
+            textNode.textContent = dimensions.visible
+              ? "Hide Dimensions"
+              : "Show Dimensions";
+          }
+          button.classList.toggle("hidden", !dimensions.visible);
+        }
+      }}">
+      <span class="material-symbols-outlined">visibility</span>
+      <span class="button-text">Show Dimensions</span>
+    </button>
+  `;
+  });
+
+  document.querySelector("#tools-tab")?.append(toggleButton, visibilityButton);
 
   window.onkeydown = (event) => {
     if (event.code === "Escape") {

@@ -50,7 +50,7 @@ export async function setupProperties(
     };
 
     return BUI.html`
-      <bim-panel label="Properties">
+      <bim-panel label="Properties" class="tree">
         <bim-panel-section label="Element Data">
           <div style="display: flex; gap: 0.5rem;">
             <bim-button @click=${expandTable} label=${

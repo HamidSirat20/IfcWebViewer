@@ -12,6 +12,9 @@
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet" />
   </head>
   <body>
     <!--NabBar -->
@@ -21,9 +24,9 @@
           <i class="fa-solid fa-cube"></i>
           Model
         </div>
-        <div class="ribbon-tab" data-tab="properties">
+        <div class="ribbon-tab" data-tab="tools">
           <i class="fa-solid fa-list"></i>
-          Properties
+          Tools
         </div>
         <div class="ribbon-tab" data-tab="clipping">
           <i class="fa-solid fa-hand-scissors"></i>
@@ -38,65 +41,22 @@
         </button>
       </div>
       <!-- Model Tab Content -->
-      <div class="ribbon-group" data-tab-content="model">
-        <bim-button class="ribbon-button" id="import-file"> </bim-button>
-        <bim-button class="ribbon-button">
-          <span class="material-icons">save</span>
-          Save
-        </bim-button>
-        <bim-button class="ribbon-button">
-          <span class="material-icons">content_copy</span>
-          Copy 1
-        </bim-button>
-        <bim-button class="ribbon-button">
-          <span class="material-icons">content_copy</span>
-          Delete
-        </bim-button>
-        <bim-button class="ribbon-button">
-          <span class="material-icons">content_copy</span>
-          Edit
-        </bim-button>
-      </div>
+      <div class="ribbon-group" data-tab-content="model" id="model-tab"></div>
 
-      <!-- Properties Tab Content -->
-      <div class="ribbon-group" data-tab-content="properties">
-        <bim-button class="ribbon-button">
-          <span class="material-icons">zoom_in</span>
-          Zoom
-        </bim-button>
-        <bim-button class="ribbon-button"> Orbit </bim-button>
-      </div>
+      <!-- Tool Tab Contents -->
+      <div
+        class="ribbon-group"
+        data-tab-content="tools"
+        id="tools-tab"></div>
 
       <!-- Clipping Tab Content -->
-      <div class="ribbon-group" data-tab-content="clipping">
-        <bim-button class="ribbon-button grid-button center-hor">
-          <div id="grid-legend"></div>
-          <div class="button-grid">
-            <div class="grid-cell" id="grid-1">1</div>
-            <div class="grid-cell" id="grid-2">2</div>
-          </div>
-          <span class="material-icons">settings</span>
-        </bim-button>
-        <bim-button class="ribbon-button" id="measureBtn">
-          <img src="../../measure.svg" alt="measure" class="measure-img" />
-        </bim-button>
-        <bim-button class="ribbon-button">
-          <span class="material-icons">merge</span>
-          Clash Detection
-        </bim-button>
-      </div>
+      <div
+        class="ribbon-group"
+        data-tab-content="clipping"
+        id="clipping-tab"></div>
 
       <!-- Layers Tab Content -->
-      <div class="ribbon-group" data-tab-content="layers">
-        <bim-button class="ribbon-button">
-          <span class="material-icons">layers</span>
-          Layer Manager
-        </bim-button>
-        <bim-button class="ribbon-button">
-          <span class="material-icons">visibility</span>
-          Toggle Visibility
-        </bim-button>
-      </div>
+      <div class="ribbon-group" data-tab-content="layers" id="layers-tab"></div>
     </div>
     <!-- Sidebar (Visible by Default) -->
     <div class="sidebar" id="sidebar">

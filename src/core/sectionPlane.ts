@@ -160,7 +160,9 @@ function sectionPlane(
 `;
   document.head.appendChild(resetStyles);
 
-  document.getElementById("section")?.append(panel1, panel2, panel3, panel4);
+  document
+    .getElementById("clipping-tab")
+    ?.append(panel1, panel2, panel3, panel4);
 }
 
 export default sectionPlane;

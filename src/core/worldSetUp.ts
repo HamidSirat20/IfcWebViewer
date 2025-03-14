@@ -40,6 +40,7 @@ export function setupWorld(container: HTMLElement) {
   debugFrame.style.bottom = "0";
   debugFrame.style.visibility = "collapse";
   culler.needsUpdate = true;
+  culler.needsUpdate = true;
   world.camera.controls.addEventListener("controlend", () => {
     culler.needsUpdate = true;
   });

@@ -29,7 +29,7 @@ async function main() {
       setupStats(world.renderer);
 
       // Add event listeners safely
-      const loadBtn = document.getElementById("import-file");
+      const loadBtn = document.getElementById("model-tab");
       const fileInput = document.getElementById("ifcFile");
 
       if (!loadBtn || !fileInput) {
