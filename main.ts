@@ -11,6 +11,7 @@ import {
   processModelRelations,
   setupProperties,
 } from "./src/core/ifcProperties.ts";
+import { fitModel } from "./src/core/fitModel.ts";
 
 async function main() {
   document.addEventListener("DOMContentLoaded", async () => {
@@ -38,10 +39,11 @@ async function main() {
 
       fileInput.addEventListener("change", async () => {
         try {
-          const model = await loadIfc(fragmentIfcLoader, world);
+          var model = await loadIfc(fragmentIfcLoader, world);
           console.log("Model after loading:", model);
           setupProperties(components, model, world);
           processModelRelations(components, model);
+          fitModel(components, model, world);
         } catch (error) {
           console.error("Loading failed:", error);
         }

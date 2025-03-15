@@ -70,7 +70,7 @@ export function setupLengthMeasurementWithUI(
   `;
   });
 
-  document.querySelector("#tools-tab")?.append(toggleButton, visibilityButton);
+  document.querySelector("#tools-tab ")?.append(toggleButton, visibilityButton);
 
   window.onkeydown = (event) => {
     if (event.code === "Escape") {

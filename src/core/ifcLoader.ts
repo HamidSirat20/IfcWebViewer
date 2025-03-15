@@ -1,19 +1,31 @@
 import * as WEBIFC from "web-ifc";
 import * as OBC from "@thatopen/components";
 import { FragmentsGroup } from "@thatopen/fragments";
+import shadowCreator, { addShadowsToModel } from "./shadow";
 
 export async function setupIfcLoader(components: OBC.Components) {
   const fragments = components.get(OBC.FragmentsManager);
   const fragmentIfcLoader = components.get(OBC.IfcLoader);
   await fragmentIfcLoader.setup();
+
+  // Check if webIfc is properly initialized
+  if (!fragmentIfcLoader.settings.webIfc) {
+    console.error("webIfc is not initialized properly");
+  } else {
+    console.log("webIfc initialized:", fragmentIfcLoader.settings.webIfc);
+  }
+
   fragmentIfcLoader.settings.webIfc.COORDINATE_TO_ORIGIN = true;
 
   // Exclude categories
-  var excludeCategories = [
+  const excludeCategories = [
     WEBIFC.IFCTENDONANCHOR,
     WEBIFC.IFCREINFORCINGBAR,
     WEBIFC.IFCREINFORCINGELEMENT,
-  ].forEach((cat) => fragmentIfcLoader.settings.excludedCategories.add(cat));
+  ];
+  excludeCategories.forEach((cat) =>
+    fragmentIfcLoader.settings.excludedCategories.add(cat)
+  );
 
   return fragmentIfcLoader;
 }
@@ -46,6 +58,7 @@ export async function loadIfc(
 
         world.scene.three.add(model);
         world.meshes.add(model);
+        addShadowsToModel(model, world);
 
         // Verify model existence
         if (!model) {
@@ -53,7 +66,6 @@ export async function loadIfc(
           return;
         }
 
-        console.log("Model inside loader:", model);
         resolve(model);
       } catch (error) {
         reject(error);
